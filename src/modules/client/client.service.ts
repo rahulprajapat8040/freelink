@@ -1,6 +1,6 @@
 import { HttpStatus, Injectable, NotFoundException } from "@nestjs/common";
 import { InjectModel } from "@nestjs/sequelize";
-import { responseSender, throwError } from "src/helper/funcation.helper";
+import { generatePagination, responseSender, throwError } from "src/helper/funcation.helper";
 import { JobsPosted, User } from "src/models";
 import { addNewJob } from "./dto/client.dto";
 import STRINGCONST from "src/common/stringConst";
@@ -56,7 +56,8 @@ export class ClientService {
                 where: { userId: user.id },
                 limit, offset
             })
-            return responseSender(STRINGCONST.DATA_FOUND, HttpStatus.OK, true, jobs)
+            const response = generatePagination(jobs, page, limit)
+            return responseSender(STRINGCONST.DATA_FOUND, HttpStatus.OK, true, response)
         } catch (error) {
             throwError(error.message)
         }

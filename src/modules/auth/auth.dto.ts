@@ -22,6 +22,12 @@ export class SignupDto {
     @IsNotEmpty({ message: "select a role" })
     role: 'client' | 'freelancer'
     otp: string
+    @IsNotEmpty({ message: "isAgree field required" })
+    isAgree: boolean
+    @IsNotEmpty({ message: "isSubscribed field required" })
+    isSubscribed: boolean
+    @IsNotEmpty({ message: 'country code is required' })
+    countryCode: string
 }
 
 export class LoginDto {

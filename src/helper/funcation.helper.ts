@@ -1,4 +1,4 @@
-import { BadRequestException } from "@nestjs/common"
+import { BadRequestException, NotFoundException } from "@nestjs/common"
 
 export const throwError = (message: string) => {
     throw new BadRequestException(message)
@@ -9,7 +9,7 @@ export const responseSender = (message: string, status: number, success = true, 
 }
 
 export const generatePagination = (
-    data: { rows: [], count: number },
+    data: { rows: any[], count: number },
     page: number,
     limit: number
 ) => {

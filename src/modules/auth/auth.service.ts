@@ -17,7 +17,7 @@ export class AuthService {
 
     async signup(signupDto: SignupDto) {
         try {
-            const { firstName, lastName, email, otp, deviceId, deviceToken, password, role } = signupDto
+            const { firstName, lastName, email, otp, deviceId, deviceToken, password, role, isAgree, isSubscribed, countryCode } = signupDto
             const existUser = await this.userModel.findOne({ where: { email: email } })
             if (existUser) {
                 throw new BadRequestException(STRINGCONST.EMAIL_FOUND)
@@ -39,7 +39,7 @@ export class AuthService {
                 throwError(STRINGCONST.INVALID_OTP);
             }
             const hashPassword = await bcrypt.hash(password, 15)
-            const newUser = await this.userModel.create({ firstName, lastName, email, password: hashPassword, role });
+            const newUser = await this.userModel.create({ firstName, lastName, email, password: hashPassword, role, isAgree, isSubscribed, countryCode });
             const payload = { userId: newUser.id }
             const accessToken = await this.jwtService.signAsync(payload)
             await existingDevice?.update({ otpStatus: true, accessToken: accessToken });
