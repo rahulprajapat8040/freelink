@@ -62,6 +62,9 @@ export class AuthService {
             if (!isMatch) {
                 throwError(STRINGCONST.USER_NOT_FOUND)
             }
+            const payload = { userId: user.id }
+            const accessToken = await this.jwtService.signAsync(payload);
+            (user as any).dataValues.accessToken = accessToken;
             return responseSender(STRINGCONST.USER_LOGGEDIN, HttpStatus.OK, true, user)
         } catch (error) {
             throwError(error.message)

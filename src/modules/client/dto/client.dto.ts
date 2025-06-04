@@ -11,7 +11,4 @@ export class addNewJob {
     @IsNotEmpty({ message: "descripiton is required" })
     @IsString()
     description: string
-    @IsNotEmpty({ message: "dead line is required" })
-    @IsString()
-    deadlineDays: string
 }

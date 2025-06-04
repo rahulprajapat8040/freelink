@@ -1,7 +1,7 @@
-module: file , client , freelancer
-feature: apis & funcation
-description: added apis for clients and freelancer & for admin create file upload system
-Author: Rahul Prajapt JUNE-02-2025 10:16 PM
+module: portfolio project
+feature: apis & files 
+description: added apis fore uploading, updating , get and deleting the portfolio projects to freelance user
+Author: Rahul Prajapt JUNE-04-2025 11:20 PM
 
 BACKEND FEATUES ------
 

@@ -1,11 +1,8 @@
 import { BadRequestException, Injectable } from "@nestjs/common";
-import { Request } from "express";
 import * as multer from 'multer'
 import * as fs from 'fs'
+import { MulterRequest } from "src/types/multerRequest";
 
-interface MulterRequest extends Request {
-    files: Express.Multer.File[];
-}
 
 @Injectable()
 export class FileService {

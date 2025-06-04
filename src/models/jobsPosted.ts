@@ -42,9 +42,13 @@ export class JobsPosted extends Model<JobsPosted, Partial<JobsPosted>> {
   })
   declare description: string;
   @Column({
-    type: DataType.STRING,
+    type: DataType.ARRAY(DataType.STRING)
   })
-  declare deadlineDays: string;
+  declare tags: string[]
+  @Column({
+    type: DataType.ARRAY(DataType.STRING)
+  })
+  declare skillsRequired: string[]
   @ForeignKey(() => Category)
   @Column({
     type: DataType.UUID

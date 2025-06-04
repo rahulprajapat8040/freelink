@@ -48,12 +48,11 @@ export class ClientService {
 
     async getAllJobs(queryParams, user: User) {
         try {
-            let { page, limit, filters } = queryParams;
+            let { page, limit } = queryParams;
             page = Number(page) || 1
             limit = Number(limit) || 10
             const offset = Number((page - 1) * limit)
             const jobs = await this.jobsModel.findAndCountAll({
-                where: { userId: user.id },
                 limit, offset
             })
             const response = generatePagination(jobs, page, limit)

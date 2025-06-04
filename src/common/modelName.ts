@@ -4,6 +4,8 @@ export default {
     jobsPosted: 'jobsposted',
     bids: 'bids',
     category: 'category',
+    portfolio: 'portfolio',
+    review: 'review'
 }
 // "jest": {
 //     "moduleFileExtensions": [

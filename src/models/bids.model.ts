@@ -3,6 +3,7 @@ import {
   Column,
   DataType,
   ForeignKey,
+  HasMany,
   Model,
   PrimaryKey,
   Table,
@@ -10,6 +11,7 @@ import {
 import ModelName from 'src/common/modelName';
 import { JobsPosted } from './jobsPosted';
 import { User } from './user.model';
+import { Reviews } from './reviews.model';
 
 @Table({ tableName: ModelName.bids, paranoid: true })
 export class Bids extends Model<Bids, Partial<Bids>> {
@@ -47,4 +49,6 @@ export class Bids extends Model<Bids, Partial<Bids>> {
   declare userId: string;
   @BelongsTo(() => User)
   declare user: User;
+  @HasMany(() => Reviews)
+  declare review: Reviews[]
 }
