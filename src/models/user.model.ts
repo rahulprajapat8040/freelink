@@ -12,6 +12,10 @@ import { JobsPosted } from './jobsPosted';
 import { Bids } from './bids.model';
 import { Portfolio } from './portfolio.model';
 import { Reviews } from './reviews.model';
+import { Certifications } from './certifications.model';
+import { UserLanguages } from './userLang.model';
+import { WorkHistory } from './workHistory.model';
+import { Skills } from './skills.model';
 
 @Table({ tableName: ModelName.user, paranoid: true })
 export class User extends Model<User, Partial<User>> {
@@ -49,6 +53,14 @@ export class User extends Model<User, Partial<User>> {
     })
     declare isAgree: boolean
     @Column({
+        type: DataType.STRING
+    })
+    declare profilePhoto: string
+    @Column({
+        type: DataType.STRING
+    })
+    declare title: string
+    @Column({
         type: DataType.BOOLEAN,
         allowNull: false
     })
@@ -59,18 +71,6 @@ export class User extends Model<User, Partial<User>> {
     })
     declare countryCode: string
     @Column({
-        type: DataType.ARRAY(DataType.JSON)
-    })
-    declare languages: object[]
-    @Column({
-        type: DataType.ARRAY(DataType.JSON)
-    })
-    declare certifications: object[]
-    @Column({
-        type: DataType.ARRAY(DataType.JSON)
-    })
-    declare workHistory: object[]
-    @Column({
         type: DataType.FLOAT
     })
     declare hourlyRate: number
@@ -78,6 +78,11 @@ export class User extends Model<User, Partial<User>> {
         type: DataType.STRING(1000)
     })
     declare aboutUser: string
+    @Column({
+        type: DataType.STRING
+    })
+    declare responseTime: string
+
     @HasMany(() => DeviceInfo)
     declare devices: DeviceInfo[];
     @HasMany(() => JobsPosted)
@@ -88,7 +93,14 @@ export class User extends Model<User, Partial<User>> {
     declare portfoio: Portfolio[]
     @HasMany(() => Reviews, 'userId')
     declare reviewsReceived: Reviews[];
-
     @HasMany(() => Reviews, 'reviewBy')
     declare reviewsGiven: Reviews[];
+    @HasMany(() => Certifications)
+    declare certifications: Certifications[]
+    @HasMany(() => UserLanguages)
+    declare languages: UserLanguages[]
+    @HasMany(() => WorkHistory)
+    declare workHistory: WorkHistory
+    @HasMany(() => Skills)
+    declare skills: Skills[]
 }

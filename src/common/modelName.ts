@@ -5,7 +5,11 @@ export default {
     bids: 'bids',
     category: 'category',
     portfolio: 'portfolio',
-    review: 'review'
+    review: 'review',
+    certifications: "certifications",
+    userlanguages: "userlanguages",
+    workHistory: "workhistory",
+    skills: "skills"
 }
 // "jest": {
 //     "moduleFileExtensions": [

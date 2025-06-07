@@ -3,7 +3,6 @@ import { SequelizeModule } from "@nestjs/sequelize";
 import { Models } from "src/models";
 
 const { HOST, DBPORT, PASSWORD, DB_USERNAME, DATABASE, MAXIMUM_RETRY_COUNT, RETRY_TIMEOUT } = process.env
-console.log(DATABASE)
 @Module({
     imports: [
         SequelizeModule.forRoot({

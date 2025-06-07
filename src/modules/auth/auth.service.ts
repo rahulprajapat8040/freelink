@@ -6,12 +6,15 @@ import { LoginDto, SignupDto } from "./auth.dto";
 import STRINGCONST from "src/common/stringConst";
 import * as bcrypt from 'bcryptjs'
 import { JwtService } from "@nestjs/jwt";
+import { MulterRequest } from "src/types/multerRequest";
+import { FileService } from "../file/file.service";
 
 @Injectable()
 export class AuthService {
     constructor(
         @InjectModel(DeviceInfo) private readonly deviceModel: typeof DeviceInfo,
         @InjectModel(User) private readonly userModel: typeof User,
+        private readonly fileService: FileService,
         private jwtService: JwtService
     ) { }
 
@@ -39,7 +42,7 @@ export class AuthService {
                 throwError(STRINGCONST.INVALID_OTP);
             }
             const hashPassword = await bcrypt.hash(password, 15)
-            const newUser = await this.userModel.create({ firstName, lastName, email, password: hashPassword, role, isAgree, isSubscribed, countryCode });
+            const newUser = await this.userModel.create({ firstName, lastName, email, password: hashPassword, role, isAgree, isSubscribed, countryCode, });
             const payload = { userId: newUser.id }
             const accessToken = await this.jwtService.signAsync(payload)
             await existingDevice?.update({ otpStatus: true, accessToken: accessToken });
@@ -91,4 +94,23 @@ export class AuthService {
             throwError(error.message)
         }
     }
-}
+
+    async updateUserDetail(req: MulterRequest, user: User) {
+        const { file, body } = await this.fileService.uploadFile(req, 'profile');
+        try {
+            const res = await this.userModel.findByPk(user.id);
+            if (!res) {
+                throw new NotFoundException(STRINGCONST.USER_NOT_FOUND);
+            };
+            const hashPassword = body.password && await bcrypt.hash(body.password, 15)
+            await res.update({
+                ...body,
+                profilePhoto: file[0] ? file[0].path : body.profilePhoto,
+                password: body.password && hashPassword
+            });
+            return responseSender(STRINGCONST.USER_UPDATED, HttpStatus.OK, true, res)
+        } catch (error) {
+            throwError(error.message);
+        };
+    };
+};

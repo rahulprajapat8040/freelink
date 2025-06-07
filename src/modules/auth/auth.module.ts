@@ -7,6 +7,7 @@ import { DeviceInfo, User } from "src/models";
 import { AuthService } from "./auth.service";
 import { AuthController } from "./auth.controller";
 import { UserSeeder } from "./user.seeder";
+import { FileService } from "../file/file.service";
 
 @Module({
     imports: [
@@ -22,7 +23,7 @@ import { UserSeeder } from "./user.seeder";
         })
     ],
     controllers: [AuthController],
-    providers: [AuthService, UserSeeder],
+    providers: [AuthService, UserSeeder, FileService],
     exports: [AuthService, JwtModule]
 })
 export class AuthModule { }

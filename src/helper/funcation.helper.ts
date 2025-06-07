@@ -1,4 +1,4 @@
-import { BadRequestException, NotFoundException } from "@nestjs/common"
+import { BadRequestException } from "@nestjs/common"
 
 export const throwError = (message: string) => {
     throw new BadRequestException(message)
@@ -26,4 +26,10 @@ export const generatePagination = (
 export const otpGenerator = (size = 6) => {
     const value = Math.pow(10, size - 1)
     return Math.floor(value + (Math.random() * (9 * value)))
+}
+
+export const parameterNotFound = (key: string, messaeg: string) => {
+    if (!key) {
+        throwError(messaeg)
+    }
 }

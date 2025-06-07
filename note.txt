@@ -1,7 +1,7 @@
-module: portfolio project
-feature: apis & files 
-description: added apis fore uploading, updating , get and deleting the portfolio projects to freelance user
-Author: Rahul Prajapt JUNE-04-2025 11:20 PM
+module: skill , lang, certification
+feature: apis  
+description: added apis for manage the skill, user language, certifications
+Author: Rahul Prajapt JUNE-07-2025 11:11 PM
 
 BACKEND FEATUES ------
 
